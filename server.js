@@ -16,7 +16,7 @@ app.use(cors());
 var mongo       = require('mongodb').MongoClient, test = require('assert');
 const ObjectID  = require('mongodb').ObjectID;
 
-var db = process.env.MONGODB_URI || "mongodb://localhost/nytreact";
+var db = process.env.MONGODB_URI || "mongodb://localhost/tempest_db";
 var DB_COLLECTION   = 'wrecks';
 var collection;
 
