@@ -5,6 +5,7 @@ const http      = require('http');
 const server    = http.createServer(app);
 const path      = require('path');
 const cors      = require('cors');
+var bodyParser = require("body-parser");
 
 
 var PORT = process.env.PORT || 8080;
@@ -15,7 +16,7 @@ app.use(cors());
 var mongo       = require('mongodb').MongoClient, test = require('assert');
 const ObjectID  = require('mongodb').ObjectID;
 
-var DB_STRING       = process.env.MONGODB_URI || "mongodb://localhost/tempest_db";
+var db = process.env.MONGODB_URI || "mongodb://localhost/nytreact";
 var DB_COLLECTION   = 'wrecks';
 var collection;
 
@@ -319,11 +320,11 @@ app.get('/proximity', function (req, res) {
          
 
 
-  mongo.connect(DB_STRING, function(err, db) {
+  mongo.connect(db, function(err, db) {
     
     if(err) console.log('Error connection to MongoDB', err);
     
-    console.log('Connected to MongoDb at', DB_STRING);
+    console.log('Connected to MongoDb at', db);
 
     collection = db.collection(DB_COLLECTION);
   
