@@ -1,0 +1,28 @@
+{
+  "name": "tempest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "logic.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.26"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bstiles13/tempest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bstiles13/tempest/issues"
+  },
+  "homepage": "https://github.com/bstiles13/tempest#readme"
+}
