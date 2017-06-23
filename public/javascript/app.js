@@ -111,7 +111,7 @@ $(document).ready(function() {
             if (userToggle === true & fb_array.indexOf(id) === -1) {
 
                 $.ajax({
-                    url: 'http://www.rednightsky.com/id',
+                    url: '/id',
                     method: 'GET',
                     data: {
                         id: id
