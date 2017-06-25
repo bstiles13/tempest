@@ -6,7 +6,7 @@ var wreckSchema = new Schema({
         geometry: {}
 });
 
-UserSchema.index({geometry: '2dsphere'});
+wreckSchema.index({geometry: '2dsphere'});
 
 var Wreck = mongoose.model("Wreck", wreckSchema);
 
