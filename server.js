@@ -6,6 +6,7 @@ const server    = http.createServer(app);
 const path      = require('path');
 const cors      = require('cors');
 var bodyParser = require("body-parser");
+var mongoose = require('mongoose');
 
 
 var PORT = process.env.PORT || 8080;
@@ -13,11 +14,16 @@ var app = express();
 app.use(cors());
 
 
-var mongo       = require('mongodb').MongoClient, test = require('assert');
-const ObjectID  = require('mongodb').ObjectID;
-
+//Start MongoDB
 var db = process.env.MONGODB_URI || "mongodb://localhost/tempest_db";
-var DB_COLLECTION   = 'wrecks';
+mongoose.connect(db, function(error) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log("mongoose connection is successful");
+  }
+});
+var Wreck = require('./models/wreck');
 var collection;
 
 var resultsArr = [];
@@ -41,7 +47,7 @@ app.get('/id', function (req, res) {
 
   console.log('qid:', qId);
 
-  collection.findOne( { _id : qId }, function(err, doc) {
+  Wreck.findOne( { _id : qId }, function(err, doc) {
 
     console.log('error', err);
 
@@ -71,7 +77,7 @@ app.get('/string', function (req, res) {
 
     query[field] = operator;
 
-    resultsArr = collection.find(query).toArray();
+    resultsArr = Wreck.find(query);
 
     
     resultsArr.then(function(arr) {
@@ -86,7 +92,7 @@ app.get('/string', function (req, res) {
 app.get('/all', function (req, res) {
 
 
-  collection.find().toArray( function( err, docs) {
+  Wreck.find({}, function( err, docs) {
 
       resultsArr.push(docs);
 
@@ -104,11 +110,11 @@ app.get('/range', function (req, res) {
   var before = parseInt(req.query.before);
   var after = parseInt(req.query.after);
 
-  resultsArr = collection.find(
+  resultsArr = Wreck.find(
     {
       "properties.yearsunk": { $gt: after, $lt: before }
     }
-    ).toArray();
+    )
 
   resultsArr.then(function(arr) {
 
@@ -228,7 +234,7 @@ app.get('/wreck', function(req, res) {
   }
 
 
-  resultsArr = collection.find(query).toArray();
+  resultsArr = Wreck.find(query);
 
 
   resultsArr.then(function(arr) {
@@ -243,11 +249,11 @@ app.get('/wreck', function(req, res) {
 app.get('/hasname', function (req, res) {
 
 
-  resultsArr = collection.find(
+  resultsArr = Wreck.find(
     {
       "properties.vesslterms" : { $nin: ["", "UNKNOWN", "WRECK"] }   
     }
-    ).toArray();
+    )
 
 
   resultsArr.then(function(arr) {
@@ -264,11 +270,11 @@ app.get('/name', function (req, res) {
 
   var shipName = req.query.name;
 
-  resultsArr = collection.find(
+  resultsArr = Wreck.find(
     {
       "properties.vesslterms": shipName.toUpperCase()
     }
-    ).toArray();
+    );
 
   resultsArr.then(function(arr) {
 
@@ -285,7 +291,7 @@ app.get('/proximity', function (req, res) {
 	var lon = parseFloat(req.query.lon);
 	var radius = parseFloat(req.query.radius);
 
-  var resultsArr = collection.find( 
+  var resultsArr = Wreck.find( 
 
           {
           	"geometry" : {
@@ -308,7 +314,7 @@ app.get('/proximity', function (req, res) {
           { 
 
           }
-          ).toArray();
+          )
 
   resultsArr.then(function(arg) {
 
@@ -317,19 +323,5 @@ app.get('/proximity', function (req, res) {
   });
 
 })
-         
-
-
-  mongo.connect(db, function(err, db) {
-    
-    if(err) console.log('Error connection to MongoDB', err);
-    
-    console.log('Connected to MongoDb at', db);
-
-    collection = db.collection(DB_COLLECTION);
-  
-    global_db = db;
-  
-  });
 
 
