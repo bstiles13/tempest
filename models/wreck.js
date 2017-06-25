@@ -3,13 +3,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var wreckSchema = new Schema({
-        id: String,
-        token: String,
-        email: String,
-        name: String,
-        username: String,
-        friends: [String]
+        geometry: {}
 });
+
+UserSchema.index({geometry: '2dsphere'});
 
 var Wreck = mongoose.model("Wreck", wreckSchema);
 
