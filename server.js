@@ -84,8 +84,9 @@ app.get('/string', function (req, res) {
 
     
     resultsArr.then(function(arr) {
-
-      res.send(arr);
+      var array = [];
+      array.push(arr);
+      res.send(array);
 
     })
 
@@ -96,8 +97,9 @@ app.get('/all', function (req, res) {
 
 
   Wreck.find({}, function( err, docs) {
-
-      resultsArr.push(docs);
+      var array = [];
+      array.push(docs);
+      resultsArr.push(array);
 
     });
 
@@ -120,10 +122,11 @@ app.get('/range', function (req, res) {
     )
 
   resultsArr.then(function(arr) {
-
+    var array = [];
+    array.push(arr);
     console.log(arr);
 
-    res.send(arr);
+    res.send(array);
 
   })
 
@@ -241,8 +244,9 @@ app.get('/wreck', function(req, res) {
 
 
   resultsArr.then(function(arr) {
-
-    res.send(arr);
+    var array = [];
+    array.push(arr);
+    res.send(array);
 
   })
 
@@ -260,8 +264,9 @@ app.get('/hasname', function (req, res) {
 
 
   resultsArr.then(function(arr) {
-
-    res.send(arr);
+    var array = [];
+    array.push(arr);
+    res.send(array);
 
   })
 
@@ -280,8 +285,9 @@ app.get('/name', function (req, res) {
     );
 
   resultsArr.then(function(arr) {
-
-    res.send(arr);
+    var array = [];
+    array.push(arr);
+    res.send(array);
 
   })
 
@@ -320,8 +326,9 @@ app.get('/proximity', function (req, res) {
           )
 
   resultsArr.then(function(arg) {
-
-    res.send(arg);
+    var array = [];
+    array.push(arg);
+    res.send(array);
 
   });
 
