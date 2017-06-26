@@ -7,6 +7,7 @@ const path      = require('path');
 const cors      = require('cors');
 var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
+var ObjectId = require('mongoose').Types.ObjectId; 
 
 
 var PORT = process.env.PORT || 8080;
@@ -42,18 +43,20 @@ app.get("/", function(req, res) {
 
 
 app.get('/id', function (req, res) {
-
-  var qId = new ObjectID(req.query.id);
+  
+  // var qId = new ObjectID(req.query.id);
+  var qId = req.query.id;
 
   console.log('qid:', qId);
 
-  Wreck.findOne( { _id : qId }, function(err, doc) {
+  Wreck.findById(qId, function(err, doc) {
 
     console.log('error', err);
 
     console.log(doc)
-
-    res.send(doc);
+    var array = [];
+    array.push(doc);
+    res.send(array);
 
   })
 
