@@ -40,7 +40,7 @@ $(document).ready(function() {
 
     if (localStorage.getItem("email")) {
         email = localStorage.getItem("email");
-        $(".email").attr("placeholder", email.replace("|", "."));
+        $(".email").attr("placeholder", email.replace(/\./g, '|'));
         loggedIn();
         pullFavorites();
     } else {
@@ -53,7 +53,7 @@ $(document).ready(function() {
         userToggle = true;
 
         email = $(".email").val();
-        email = email.replace(".", "|");
+        email = email.replace(/\./g, '|');
         console.log(email);
 
         database.ref("/users/" + email).on("value", function(test) {
