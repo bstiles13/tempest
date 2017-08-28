@@ -5,13 +5,13 @@ const http      = require('http');
 const server    = http.createServer(app);
 const path      = require('path');
 const cors      = require('cors');
-var bodyParser = require("body-parser");
-var mongoose = require('mongoose');
-var ObjectId = require('mongoose').Types.ObjectId; 
+const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
+const ObjectId = require('mongoose').Types.ObjectId; 
 
 
-var PORT = process.env.PORT || 8080;
-var app = express();
+let PORT = process.env.PORT || 8080;
+let app = express();
 app.use(cors());
 
 
